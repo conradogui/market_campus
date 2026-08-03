@@ -4,6 +4,8 @@ import dotenv from "dotenv"
 
 import anunciosRouter from "./routes/anuncios.routes"
 import { errorHandler } from "./middlewares/errorHandler"
+import usersRouter from "./routes/users.routes"
+
 
 dotenv.config()
 
@@ -11,6 +13,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use("/anuncios", anunciosRouter)
+app.use("/users", usersRouter)
 
 app.get("/working", (_req, res) => {
   res.json({ status: "projeto funcionando" })

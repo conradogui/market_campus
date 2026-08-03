@@ -1,10 +1,22 @@
 // prisma/seed.ts
 import { PrismaClient } from "@prisma/client"
+import bcrypt from "bcryptjs"
 
 const prisma = new PrismaClient()
 
 async function main() {
   await prisma.anuncio.deleteMany()
+  await prisma.user.deleteMany()
+
+  const senhaHash = await bcrypt.hash("123456", 10)
+
+  const [u1, u2, u3, u4, u5] = await Promise.all([
+    prisma.user.create({ data: { nome: "Usuário Seed 1", email: "seed1@unifor.br", senha: senhaHash } }),
+    prisma.user.create({ data: { nome: "Usuário Seed 2", email: "seed2@unifor.br", senha: senhaHash } }),
+    prisma.user.create({ data: { nome: "Usuário Seed 3", email: "seed3@unifor.br", senha: senhaHash } }),
+    prisma.user.create({ data: { nome: "Usuário Seed 4", email: "seed4@unifor.br", senha: senhaHash } }),
+    prisma.user.create({ data: { nome: "Usuário Seed 5", email: "seed5@unifor.br", senha: senhaHash } }),
+  ])
 
   await prisma.anuncio.createMany({
     data: [
@@ -14,7 +26,7 @@ async function main() {
         categoria: "Livros",
         preco: 45.0,
         isDoacao: false,
-        userId: "seed-user-1",
+        userId: u1.id,
       },
       {
         titulo: "Calculadora Científica HP 12C",
@@ -22,30 +34,22 @@ async function main() {
         categoria: "Engenharia",
         preco: 80.0,
         isDoacao: false,
-        userId: "seed-user-1",
+        userId: u1.id,
       },
       {
         titulo: "Jaleco tamanho M",
         descricao: "Doação para quem está começando o curso.",
         categoria: "Saúde",
         isDoacao: true,
-        userId: "seed-user-2",
+        userId: u2.id,
       },
-      {
-    titulo: "Cálculo Vol. 1 - James Stewart",
-    descricao: "Produto tal, usado, bom estado",
-    categoria: "Livros",
-    preco: 45,
-    isDoacao: false,
-    userId: "seed-user-1",
-  },
   {
     titulo: "Notebook Dell Inspiron i5",
     descricao: "Notebook usado, 8GB RAM, SSD 256GB, funcionando perfeitamente.",
     categoria: "Eletrônicos",
     preco: 2200,
     isDoacao: false,
-    userId: "seed-user-2",
+    userId: u2.id,
   },
   {
     titulo: "Mesa de Escritório",
@@ -53,7 +57,7 @@ async function main() {
     categoria: "Móveis",
     preco: 350,
     isDoacao: false,
-    userId: "seed-user-3",
+    userId: u3.id,
   },
   {
     titulo: "Monitor LG 24 Polegadas",
@@ -61,7 +65,7 @@ async function main() {
     categoria: "Eletrônicos",
     preco: 650,
     isDoacao: false,
-    userId: "seed-user-4",
+    userId: u4.id,
   },
   {
     titulo: "Bicicleta Aro 29",
@@ -69,7 +73,7 @@ async function main() {
     categoria: "Esportes",
     preco: 1200,
     isDoacao: false,
-    userId: "seed-user-5",
+    userId: u5.id,
   },
   {
     titulo: "Cadeira Gamer",
@@ -77,7 +81,7 @@ async function main() {
     categoria: "Móveis",
     preco: 850,
     isDoacao: false,
-    userId: "seed-user-2",
+    userId: u2.id,
   },
   {
     titulo: "Livro Clean Code",
@@ -85,7 +89,7 @@ async function main() {
     categoria: "Livros",
     preco: 70,
     isDoacao: false,
-    userId: "seed-user-1",
+    userId: u3.id,
   },
   {
     titulo: "Violão Acústico Giannini",
@@ -93,7 +97,7 @@ async function main() {
     categoria: "Instrumentos Musicais",
     preco: 500,
     isDoacao: false,
-    userId: "seed-user-3",
+    userId: u3.id,
   },
   {
     titulo: "Roupas Infantis",
@@ -101,7 +105,7 @@ async function main() {
     categoria: "Roupas",
     preco: 0,
     isDoacao: true,
-    userId: "seed-user-4",
+    userId: u4.id,
   },
   {
     titulo: "Sofá 3 Lugares",
@@ -109,7 +113,7 @@ async function main() {
     categoria: "Móveis",
     preco: 900,
     isDoacao: false,
-    userId: "seed-user-5",
+    userId: u5.id,
   },
   {
     titulo: "Kit de Panelas Inox",
@@ -117,7 +121,7 @@ async function main() {
     categoria: "Casa e Cozinha",
     preco: 250,
     isDoacao: false,
-    userId: "seed-user-2",
+    userId: u2.id,
   }
     ],
   })

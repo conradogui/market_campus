@@ -1,8 +1,8 @@
 import { prisma } from "../db/prisma"
 import { CreateAnuncioInput } from "../schemas/anuncio.schema"
 
-export async function criarAnuncio(data: CreateAnuncioInput) {
-    return prisma.anuncio.create({data})
+export async function criarAnuncio(data: CreateAnuncioInput, userId: string) {
+    return prisma.anuncio.create({data: {...data, userId}})
 }
 
 export async function listarAnuncios(filtros: { categoria?: string; userId?: string}) {
@@ -15,6 +15,10 @@ export async function listarAnuncios(filtros: { categoria?: string; userId?: str
     })
 }
 
-export async function deletarAnuncio(id: string) {
-    return prisma.anuncio.delete({where: {id}})
+// anuncios.service.ts
+export async function deletarAnuncio(id: string, userId: string) {
+    const resultado = await prisma.anuncio.deleteMany({where: {id, userId}})
+    if(resultado.count === 0) {
+        throw new Error("Anuncio não encontrado")
+    }
 }

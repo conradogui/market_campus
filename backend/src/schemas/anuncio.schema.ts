@@ -7,7 +7,6 @@ export const createAnuncioSchema = z.object({
   preco: z.number().positive().optional(),
   isDoacao: z.boolean().default(false),
   imagemUrl: z.string().url().optional(),
-  userId: z.string().min(1, "UserId é obrigatório")
 })
 
 export type CreateAnuncioInput = z.infer<typeof createAnuncioSchema>
