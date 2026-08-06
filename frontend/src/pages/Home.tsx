@@ -39,9 +39,14 @@ function Home() {
           <span className="font-notch text-3xl font-bold sm:text-4xl">Market <span className="underline">Campus</span></span>
           <div className="flex flex-wrap gap-2">
             {isAuthenticated ? (
+              <>
+                <Link to="/meus" className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
+                  Meus Anúncios
+                </Link>
                 <button onClick={logout} className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
                   Sair
                 </button>
+              </>
               ) : (
                 <>
                   <Link to="/login" className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
@@ -52,6 +57,9 @@ function Home() {
                   </Link>
                 </>
               )}
+              <Link to="/anunciar" className="rounded-sm bg-white px-4 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50">
+                  Anuncie aqui
+              </Link>
           </div>
         </nav>
         <p className="mx-auto mt-4 max-w-xl text-white">

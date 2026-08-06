@@ -8,6 +8,7 @@ const router = Router()
 
 router.post("/", authMiddleware, validate(createAnuncioSchema), anunciosController.create)
 router.get("/", anunciosController.list)
+router.get("/meus", authMiddleware, anunciosController.listMeusAnuncios)
 router.delete("/:id", authMiddleware, anunciosController.remove)
 
 export default router

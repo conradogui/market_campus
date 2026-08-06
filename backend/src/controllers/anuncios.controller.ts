@@ -16,8 +16,17 @@ export async function list(req: Request, res: Response, next: NextFunction) {
     const { categoria, userId } = req.query
     const anuncios = await anunciosService.listarAnuncios({
       categoria: categoria as string | undefined,
-      userId: userId as string | undefined,
+      //userId: userId as string | undefined,
     })
+    res.json(anuncios)
+  } catch (err) {
+    next(err)
+  }
+}
+
+export async function listMeusAnuncios(req: AuthRequest, res: Response, next: NextFunction) {
+  try {
+    const anuncios = await anunciosService.listarAnuncios({ userId: req.userId! })
     res.json(anuncios)
   } catch (err) {
     next(err)
