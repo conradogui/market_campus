@@ -1,16 +1,13 @@
-import { Link } from "react-router"
 import { useEffect, useState } from "react"
 import { fetchDaApi } from "../services/api"
 import type { Anuncio } from "../types/anuncio"
 import AnuncioCard from "../components/AnuncioCard"
-import { useAuth } from "../hooks/useAuth"
 
 function Home() {
     const [anuncios, setAnuncios] = useState<Anuncio[]>([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState("todos")
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const { isAuthenticated, logout } = useAuth()
 
     useEffect(() => {
         async function carregaeAnuncios() {
@@ -35,33 +32,6 @@ function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <section className="bg-blue-700 px-4 py-16 text-center text-white">
-        <nav className="mx-auto mb-12 flex max-w-6xl items-center justify-between">
-          <span className="font-notch text-3xl font-bold sm:text-4xl">Market <span className="underline">Campus</span></span>
-          <div className="flex flex-wrap gap-2">
-            {isAuthenticated ? (
-              <>
-                <Link to="/meus" className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
-                  Meus Anúncios
-                </Link>
-                <button onClick={logout} className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
-                  Sair
-                </button>
-              </>
-              ) : (
-                <>
-                  <Link to="/login" className="rounded-sm border border-white px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-600">
-                    Login
-                  </Link>
-                  <Link to="/register" className="rounded-sm bg-white px-4 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50">
-                    Cadastre-se
-                  </Link>
-                </>
-              )}
-              <Link to="/anunciar" className="rounded-sm bg-white px-4 py-1.5 text-sm font-medium text-blue-700 hover:bg-blue-50">
-                  Anuncie aqui
-              </Link>
-          </div>
-        </nav>
         <p className="mx-auto mt-4 max-w-xl text-white">
           O marketplace de economia circular do campus - doe, venda e encontre o que você precisa.
         </p>

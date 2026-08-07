@@ -23,6 +23,15 @@ function MeusAnuncios() {
         loadMeusAnuncios()
     }, [])
 
+    async function handleDelete(id: string) {
+        try {
+            await fetchDaApi(`/anuncios/${id}`, {method: "DELETE"})
+            setAnuncios((anuncios) => anuncios.filter((anuncio) => anuncio.id !== id))
+        } catch {
+            setError("Não foi possível excluir o anúncio")
+        }
+    }
+
 
     return (
         <div className="min-h-screen bg-gray-50 px-4 py-12">
@@ -35,7 +44,7 @@ function MeusAnuncios() {
                 )}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {anuncios.map((anuncio) => (
-                    <AnuncioCard key={anuncio.id} anuncio={anuncio} />
+                    <AnuncioCard key={anuncio.id} anuncio={anuncio} onDelete={() => handleDelete(anuncio.id)} />
                 ))}
                 </div>
             </div>
