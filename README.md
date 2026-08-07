@@ -1,6 +1,10 @@
 # market_campus
 
 - Marketplace para alunos do ambiente universitário da Unifor. Permite que estudantes cadastrem itens para doação ou venda, facilitando acesso a materiais para ingressantes na universidade e a economia circualr no campus.
+- Deploy do projeto (frontend): https://market-campus-5x6g-c4h8tao8l-conradoguis-projects.vercel.app
+- Deploy do projeto (backend): https://market-campus.onrender.com
+
+
 
 ## Tecnologias utilizadas
 
@@ -93,5 +97,6 @@ O que a página precisa fazer:
 6. Estilizar com Tailwind, simples e responsivo, mantendo a mesma cara da página de Login
 tudo tipado em TypeScript
 ```
-## Reflexão crítica e erro da IA
+## Reflexão crítica e erros da IA
 - O erro de tipo no `anuncios.service.ts`: quando a IA removeu o campo `userId` do schema Zod (pra ele passar a vir do token JWT em vez do body), o `criarAnuncio` no service ficou com uma assinatura de função desatualizada — ainda esperava receber `userId` dentro do mesmo objeto de dados entretanto o tipo não permitia mais isso. O `tsc` acusou o erro, e a correção foi separar `userId` como um parâmetro da função. Nesse exemplo a IA me sugeriu uma mudança entretanto ao aplicar (gerando erro), deve ser ratreado os efeitos do mesmo em outros arquivos que dependem daquele código. 
+- Pedi ajuda pra criar as páginas de Login e Cadastro com prompts parecidos, mas o do Cadastro foi mais detalhado, incluindo tratamento de erros de validação (formato objeto), já o do Login não. Com isso o Login só tratava erros como texto simples e quebraria se a API respondesse com um erro de validação. Mais tarde fiz uma revisão do que foi feito com a IA e localizei o problema.A correção foi replicar no Login o mesmo tratamento que já existia no Cadastro.
